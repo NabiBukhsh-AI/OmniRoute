@@ -443,5 +443,11 @@ test("streamed tool call arguments carrying secrets are redacted without duplica
   }
 
   const concatenated = receivedArgs.join("");
+  const expected = redactCredentials(toolArgs).text;
+  assert.equal(
+    concatenated,
+    expected,
+    "concatenated tool arguments must match expected redacted payload"
+  );
   assert.doesNotThrow(() => JSON.parse(concatenated), "concatenated arguments must be valid JSON");
 });
